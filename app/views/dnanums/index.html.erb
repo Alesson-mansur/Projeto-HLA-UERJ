@@ -1,0 +1,52 @@
+<%- model_class = Dnanum -%>
+<div class="page-header">
+  <h1>Registros de Amostras em Placas <%= image_tag("logo_hla1.png", :alt => "Logo HLA-UERJ", :style => "float:right;") %></h1>
+</div>
+
+<div>
+  <%= will_paginate @dnanums %>
+</div>
+
+<div class="field">
+  <%= form_tag(dnanums_path, method: "get") do %>
+    <%= text_field_tag :q, params[:q], placeholder: 'Procurar...' %>
+    <%= submit_tag("Pesquisar") %>
+  <% end %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><h5><b>Número de DNA</b></h5></th>
+      <th><h5><b>Exame Associado</b></h5></th>
+      <th><h5><b>Localização</b></h5></th>
+      <th><h5><b>Repetição solicitada?</b></h5></th>
+      <th><h5><b>Criado por</b></h5></th>
+      <th><h5><b>Incluído em</b></h5></th>
+      <th><h5><b>Ações</b></h5></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for dnanum in @dnanums %>
+      <tr>
+        <td><%= dnanum.code %></td>
+        <td><%= dnanum.exam.kind %></td>
+        <td>Placa nº <%= dnanum.boardnum.identification %></td>
+        <td><%= dnanum.option %></td>
+        <td><%= dnanum.signature.uname.titleize %></td>
+        <td><%= dnanum.created_at.to_s(:port) %></td>
+        <td>
+          <%= link_to 'Mostrar', dnanum_path(dnanum), :class => 'btn btn-default btn-sm' %>
+          <%= link_to 'Editar', edit_dnanum_path(dnanum), :class => 'btn btn-info btn-sm' %>
+          <%= link_to 'Apagar',dnanum_path(dnanum),
+                      :method => :delete,
+                      :data => { :confirm => 'Deseja mesmo apagar o cadastro selecionado?' },
+                      :class => 'btn btn-sm btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Novo Cadastro', new_dnanum_path, :class => 'btn btn-primary btn-lg' %>
+

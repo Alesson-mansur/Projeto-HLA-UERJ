@@ -1,0 +1,44 @@
+<%- model_class = Board -%>
+<div class="page-header">
+  <h1>Mapas de Trabalho <%= image_tag("logo_hla1.png", :alt => "Logo HLA-UERJ", :style => "float:right;") %> </h1>
+</div>
+
+<%= will_paginate @boards %>
+
+<div class="field">
+  <%= form_tag(boards_path, method: "get") do %>
+    <%= text_field_tag :q, params[:q], placeholder: 'Procurar...' %>
+    <%= submit_tag("Pesquisar") %>
+  <% end %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><h5><b>Número da Placa</b></h5></th>
+      <th><h5><b>Criado por</b></h5></th>
+      <th><h5><b>Criado em</b></h5></th>
+      <th><h5><b>Ações</b></h5></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for board in @boards %>
+      <tr>
+        <td><b><%= board.identification %></b></td>
+        <td><%= board.signature.uname.titleize %></td>
+        <td><%= board.created_at.to_s(:port) %></td>
+        <td>
+          <%= link_to 'Mostrar', board_path(board), :class => 'btn btn-default btn-sm' %>
+          <%= link_to 'Apagar',board_path(board),
+                      :method => :delete,
+                      :data => { :confirm => 'Deseja mesmo apagar o mapa selecionado?' },
+                      :class => 'btn btn-sm btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Novo Mapa',
+            new_board_path,
+            :class => 'btn btn-primary btn-lg' %>

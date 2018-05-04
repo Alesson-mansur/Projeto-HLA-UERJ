@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4">
+    <h1>Editar Cadastro</h1>
+    <hr>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= devise_error_messages! %>
+
+      <div class="form-group">
+        <%= f.label :username %><br />
+        <%= f.text_field :username, class: 'form-control'  %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, class: 'form-control'  %>
+      </div>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <div class="form-group">
+        <div class="control-label">
+          <b>Nova senha </b><i>(deixe em branco caso não queira mudá-la)</i>
+        </div>
+        <%= f.password_field :password, autocomplete: "off", class: 'form-control'  %>
+      </div>
+
+      <div class="form-group">
+        <div class="control-label">
+          <b>Confirmação de nova senha </b>
+        </div>
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'  %>
+      </div>
+
+      <div class="form-group">
+        <div class="control-label">
+          <b>Senha atual </b><i>(sua senha atual é necessária para confirmarmos as alterações solicitadas)</i>
+        </div>
+        <%= f.password_field :current_password, autocomplete: "off", class: 'form-control'  %>
+      </div>
+
+      <div class="form-group">
+        <%= f.submit "Atualizar", class: 'btn btn-lg btn-block btn-primary' %>
+      </div>
+    <% end %>
+    <hr>
+
+    <!--<h2>Cancelar minha conta</h2>
+
+    <p>Você tem certeza? <%#= button_to "Cancelar minha conta", registration_path(resource_name), class: "btn btn-danger", data: { confirm: "Você tem certeza? Essa ação é irreversível." }, method: :delete %></p>-->
+
+    <%= link_to "Voltar sem salvar", :back, class: "btn btn-info" %>
+    <hr>
+  </div>
+</div>

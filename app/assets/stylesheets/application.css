@@ -1,0 +1,134 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require bootstrap_and_overrides
+ */
+
+ /* navbar */
+.navbar-inverse {
+    border-color: #00802b;/*#8B1A1A;*/
+}
+/* navbar title */
+.navbar-inverse .navbar-brand {
+    background-color: #00802b; /*#8B1A1A;*/
+    color: #F2F2F2;;
+}
+.navbar-inverse .navbar-brand:hover {
+	background-color: #8B8B83 !important;
+	color: #FFFFFF !important;
+}
+.navbar-inverse .navbar-brand:focus {
+    color: #5E5E5E;
+}
+/* navbar outras opções */
+.navbar-inverse .navbar-nav > li > a { 
+  color: #F2F2F2; 
+}
+ul.nav a:hover { 
+	background-color: #8B8B83 !important; 
+	color: #FFFFFF !important;
+}
+
+/* Checkboxes */
+input[type="checkbox"], label {
+    float: left;
+    line-height: 1.6em;
+    height: 1.6em;
+    margin: 0px 2px;
+    padding: 0px;
+    font-size: inherit;
+}
+/*Rótulo das checkboxes*/
+input[type="checkbox"] {
+    clear: left;
+    vertical-align: bottom;
+}
+
+/* Tabelas */
+table {
+    border: 3px solid #a5a5a5;
+}
+td {
+    border-bottom: 1px solid #a5a5a5;
+}
+thead {
+    background: #ccc url(https://www.devfuria.com.br/html-css/tabelas/bar.gif) repeat-x left center;
+    border-top: 1px solid #a5a5a5;
+    border-bottom: 3px solid #a5a5a5;
+}
+tbody {
+    background-color: #e6e6e6;
+}
+thead tr:hover {
+  background-color: transparent;
+  color: inherit;
+}
+.datetime>select:hover {
+  color: #000000;
+}
+.table-striped>tbody>tr:hover:nth-child(odd)>td {
+   background-color: #00802b;
+ }
+tr:hover {
+  background-color: #00802b;
+  color: #ffffff;
+}
+
+/* Sobrescrever margens will-paginate */
+.pagination {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.pagination>li>a {
+  color: #00802b !important;
+}
+.pagination>li.active>a {
+  background: #00802b;
+  color: #FFFFFF !important;
+  border-color: #00802b !important;
+}
+.pagination>li.active>a:hover {
+  background-color: #519662 !important;
+}
+
+/*Mudar a cor do .button- */
+.btn-primary {
+    background-color: #00802b !important;
+    border-color: #00802b !important;
+    color: #FFFFFF !important;
+}
+.btn-primary:hover{
+    background-color: #519662 !important;
+}
+.btn-danger {
+    border: 2px solid #FFFFFF !important;
+    color: #FFFFFF !important;
+}
+.btn-danger:hover{
+    border: 2px solid #FFFFFF !important;
+}
+.btn-info {
+    background-color: #00802b !important;
+    border: 2px solid #FFFFFF !important;
+    color: #FFFFFF !important;
+}
+.btn-info:hover{
+    background-color: #519662 !important;
+    border: 2px solid #FFFFFF !important;
+}
+
+/* Editar as margens padrão de <h4>  ou qualquer outro */
+h4 {
+  margin: 4px !important;
+}

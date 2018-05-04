@@ -1,0 +1,10 @@
+<%- model_class = Dnanum -%>
+<div class="page-header">
+  <h1>Edição de Endereçamento de Amostra</h1>
+</div>
+
+<% @tst = Boardnum.all.order("created_at desc") %>
+
+<br>
+
+<%= render :partial => 'form' %>

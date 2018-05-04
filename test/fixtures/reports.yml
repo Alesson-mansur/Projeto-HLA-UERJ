@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  detail: MyText
+  board: one
+  phase: one
+  reagent: one
+
+two:
+  detail: MyText
+  board: two
+  phase: two
+  reagent: two

@@ -1,0 +1,397 @@
+<%- model_class = Reagent -%>
+<div class="page-header">
+  <h1>Reagentes, Eletroforese e Amostras Reprovadas</h1>
+</div>
+
+<div class="form-group">
+  <div class="form-group">
+    <div class="control-label col-lg-3" style="text-align:right;">
+      <h5><b>Número da Placa:</b></h5>
+    </div>
+    <div class="control-label col-lg-6">
+      <h5 style="text-align:left;"><%= @reagent.board.identification %> (não hibridizar as amostras mostradas em vermelho)</h5>
+    </div><br>
+  </div>
+
+  <br><br>
+
+  <% temp = ['A','B','C','D','E','F','G','H'] %>
+  <% trop = ['1','2','3','4','5','6','7','8','9','10','11','12'] %>
+
+  <table border="2" class="table table-striped vertical-align">
+    <thead>
+      <tr>
+        <th></th>
+        <% 12.times do |qwe| %>
+          <th style="text-align:center"><h4><b><%= trop[qwe] %></b></h4></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% 8.times do |rdf| %> 
+        <tr>
+          <td style="height:20px"><h5><b><%= temp[rdf] %></b></h5></td>
+          <% 12.times do |spc| %>
+            <% varaux = nil %>
+            <% id_reag = 0 %>
+            <% varsup = '0' %>
+            <% aux = temp[rdf] + trop[spc] %>
+            <% @reagent.board.dnanums.each do|zxcv| %>
+              <% if (zxcv.well == aux) %>
+                <% varaux = zxcv.code + ' - ' + zxcv.exam.kind %>
+                <% id_reag = zxcv.id %>
+              <% end %>
+            <% end %>
+            <% if (varaux == nil) %>
+              <td style="height:20px">Vazio</td>
+            <% else %>
+              <% @reagent.dnanums.each do |fck| %>
+                <% if ( fck.id == id_reag ) %>
+                  <% varsup = fck.code_and_exam %>
+                <% end %>
+              <% end %>
+              <% if (varaux == varsup) %>
+                <td style="height:20px" bgcolor="#ff0000"><%= varaux %></td>
+              <% else %>
+                <td style="height:20px"><%= varaux %></td>
+              <% end %>
+            <% end %> 
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <div class="form-group">
+    <div class="control-label col-lg-3" style="text-align:right;">
+      <h5><b>Eletroforese:</b></h5>
+    </div>
+    <div class="control-label col-lg-4">
+      <% if @reagent.image.blank? %>
+      	<h5>Etapa ainda não concluída ou imagem ainda não enviada.</h5>
+    	<% else %>
+      	<%= image_tag @reagent.image.url(:large), class: 'img-fluid' %>
+    	<% end %>
+    </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  </div>
+
+  <br><br>
+
+  <div class="form-group">
+    <div class="control-label col-lg-3" style="text-align:right;">
+      <h5><b>Amostras com falha em algum processo e que não devem ser hibridizadas:</b></h5>
+    </div>
+    <div class="control-label col-lg-4">
+      <% if @reagent.image.blank? %>
+      	<h5>Etapa ainda não verificada.</h5>
+      <% elsif @reagent.dnanums.blank? %>
+      	<h5>Nenhuma amostra do respectivo mapa foi reprovada.</h5>
+    	<% else %>
+      	<% @reagent.dnanums.each do |asd| %>
+      		<h5><%= asd.code_and_exam %></h5>
+      	<% end %>
+    	<% end %><br><br>
+    </div><br><br>
+  </div>
+
+  <br><br>
+
+  <table class="table table-striped table-condensed vertical-align col-lg-8 form-group">
+    <thead>
+      <tr>
+        <th style="text-align:center"><h4><b>LOCO</b></h4></th>
+        <th style="text-align:center"><h4><b><i>PRIMER</i> (LOTE)</b></h4></th>
+        <th style="text-align:center"><h4><b>VALIDADE</b></h4></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>A</b></td>
+          <% if @reagent.campo1.blank? %>
+            <td></td><td></td>
+          <% else %>
+            <td class="col-lg-3"><%= @reagent.campo1 %></td>
+            <td class="col-lg-3"><%= @reagent.data1.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>B</b></td>
+          <% if @reagent.campo2.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo2 %></td>
+            <td class="col-lg-3"><%= @reagent.data2.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>C</b></td>
+          <% if @reagent.campo3.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo3 %></td>
+            <td class="col-lg-3"><%= @reagent.data3.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>DRB1</b></td>
+          <% if @reagent.campo4.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo4 %></td>
+            <td class="col-lg-3"><%= @reagent.data4.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>DQB1</b></td>
+          <% if @reagent.campo5.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo5 %></td>
+            <td class="col-lg-3"><%= @reagent.data5.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>A-AR</b></td>
+          <% if @reagent.campo6.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo6 %></td>
+            <td class="col-lg-3"><%= @reagent.data6.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>B-AR</b></td>
+          <% if @reagent.campo7.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo7 %></td>
+            <td class="col-lg-3"><%= @reagent.data7.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>C-AR</b></td>
+          <% if @reagent.campo8.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo8 %></td>
+            <td class="col-lg-3"><%= @reagent.data8.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>DR-AR</b></td>
+          <% if @reagent.campo9.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo9 %></td>
+            <td class="col-lg-3"><%= @reagent.data9.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>PIPETAS</b></td>
+          <td class="col-lg-3" colspan="2"><%= @reagent.campo10 %></td>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>TERMOCICLADOR</b></td>
+          <td class="col-lg-3" colspan="2"><%= @reagent.campo11 %></td>
+        </div>
+      </tr>
+    </tbody>
+  </table>
+
+  <br><br>
+
+  <table class="table table-striped table-condensed vertical-align col-lg-8 form-group">
+    <thead>
+      <tr>
+        <th style="text-align:center"><h4><b>LOCO</b></h4></th>
+        <th style="text-align:center"><h4><b><i>BEAD</i> (LOTE)</b></h4></th>
+        <th style="text-align:center"><h4><b>VALIDADE</b></h4></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>A</b></td>
+          <% if @reagent.campo12.blank? %>
+            <td></td><td></td>
+          <% else %>
+            <td class="col-lg-3"><%= @reagent.campo12 %></td>
+            <td class="col-lg-3"><%= @reagent.data12.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>B</b></td>
+          <% if @reagent.campo13.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo13 %></td>
+            <td class="col-lg-3"><%= @reagent.data13.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>C</b></td>
+          <% if @reagent.campo14.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo14 %></td>
+            <td class="col-lg-3"><%= @reagent.data14.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>DRB1</b></td>
+          <% if @reagent.campo15.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo15 %></td>
+            <td class="col-lg-3"><%= @reagent.data15.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>DQB1</b></td>
+          <% if @reagent.campo16.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo16 %></td>
+            <td class="col-lg-3"><%= @reagent.data16.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>A-AR</b></td>
+          <% if @reagent.campo17.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo17 %></td>
+            <td class="col-lg-3"><%= @reagent.data17.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>B-AR</b></td>
+          <% if @reagent.campo18.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo18 %></td>
+            <td class="col-lg-3"><%= @reagent.data18.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>C-AR</b></td>
+          <% if @reagent.campo19.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo19 %></td>
+            <td class="col-lg-3"><%= @reagent.data19.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>DR-AR</b></td>
+          <% if @reagent.campo20.blank? %> 
+            <td></td><td></td> 
+          <% else %> 
+            <td class="col-lg-3"><%= @reagent.campo20 %></td>
+            <td class="col-lg-3"><%= @reagent.data20.strftime("%d %b %Y") %></td>
+          <% end %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>PIPETAS</b></td>
+          <td class="col-lg-3" colspan="2"><%= @reagent.campo21 %></td>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>TERMOCICLADOR</b></td>
+          <td class="col-lg-3" colspan="2"><%= @reagent.campo22 %></td>
+        </div>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-striped table-condensed vertical-align col-lg-8 form-group">
+    <tr>
+      <div>
+        <td class="col-lg-3" style="text-align:center"><b>TAQ (LOTE):</b></td>
+        <% if @reagent.campo23.blank? %>
+          <td>Ainda não definido.</td>
+        <% else %>
+          <td class="col-lg-3" style="text-align:center"><%= @reagent.campo23 %></td>
+          <td class="col-lg-3" style="text-align:center"><b>VALIDADE:</b></td>
+          <td class="col-lg-3" style="text-align:center"><%= @reagent.data23.strftime("%d %b %Y")  %></td>
+        <% end %>
+      </div>
+    </tr>
+    <tr>
+      <div>
+        <td class="col-lg-3" style="text-align:center"><b>D-MIX (LOTE):</b></td>
+        <% if @reagent.campo24.blank? %>
+          <td>Ainda não definido.</td>
+        <% else %>
+          <td class="col-lg-3" style="text-align:center"><%= @reagent.campo24 %></td>
+          <td class="col-lg-3"style="text-align:center"><b>VALIDADE:</b></td>
+          <td class="col-lg-3" style="text-align:center"><%= @reagent.data24.strftime("%d %b %Y")  %></td>
+        <% end %>
+      </div>
+    </tr>
+  </table>
+
+  <div class="form-group">
+    <div class="control-label col-lg-3" style="text-align:right;">
+      <h5><b>Observações gerais:</b></h5>
+    </div>
+    <div class="control-label col-lg-9">
+      <% if @reagent.obs.blank? %>
+        <h5 style="text-align:left;">Não há.</h5>
+      <% else %>
+        <h5 style="text-align:left;"><%= @reagent.obs %></h5>
+      <% end %>
+    </div>
+  </div><br><br>
+</div>
+
+<div class="form-group">
+<div class="control-label col-lg-3">
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              reagents_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_reagent_path(@reagent), :class => 'btn btn-info' %>
+</div>
+</div>

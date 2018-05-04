@@ -1,0 +1,406 @@
+<%= form_for @reagent, :html => { multipart: true, :class => "form-horizontal reagent" } do |f| %>
+
+  <% if @reagent.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@reagent.errors.count, "error") %> prohibited this reagent from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @reagent.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <div class="control-label col-lg-4">
+      <h5 style="text-align:right;"><b>Número da Placa: </b></h5>
+    </div>
+    <div class="control-label col-lg-3">
+      <h5 style="text-align:left"><%= @reagent.board.identification %></h5>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="control-label col-lg-4" style="text-align:right;">
+      <h5><b>Imagem da Eletroforese:</b></h5>
+    </div>
+    <div class="control-label col-lg-3">
+      <%= f.file_field :image, :class => 'control-label' %>
+    </div>
+    <%=f.error_span(:image) %>
+  </div>
+  
+  <div class="form-group">
+    <div class='control-label col-lg-4' style="text-align:right;">
+      <h5><b>Alguma amostra apresentou falha em alguma etapa?</b></h5>
+    </div>
+    <div class="dropdown col-lg-4">
+      <%= f.select :amplific, options_for_select(["Não","Sim"]), { :prompt => "Selecione" }, {:class => "btn btn-primary disable-dropdown-toggle form-control"} %>
+    </div>
+    <%=f.error_span(:amplific) %>
+  </div>
+
+  <div class="form-group">
+    <div class="control-label col-lg-4" style="text-align:right;">
+      <h5><b>Caso positivo, marcar quais são:</b></h5>
+    </div>
+    <div class="col-lg-offset-0 col-lg-4">
+      <%= f.collection_check_boxes :dnanum_ids, @reagent.board.dnanums.all.order("code asc"), :id, :code_and_exam do |b| %> 
+        <label class="check_box-inline">
+          <%= b.check_box %><%= b.label %>
+        </label><br><br>
+      <% end %>
+    </div>
+  </div>  
+
+  <br>
+
+  <table class="table table-striped table-condensed vertical-align col-lg-8 form-group">
+    <thead>
+      <tr>
+        <th style="text-align:center"><h4><b>LOCO</b></h4></th>
+        <th style="text-align:center"><h4><b><i>PRIMER</i> (LOTE)</b></h4></th>
+        <th style="text-align:center"><h4><b>VALIDADE</b></h4></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>A</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo1, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data1, :order => [:day, :month, :year],
+                                    :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                    :start_year => 2018, 
+                                    :end_year => 2030,
+                                    :class => 'form-group' %></td>
+          <%=f.error_span(:campo1) %>
+          <%=f.error_span(:data1) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>B</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo2, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data2, :order => [:day, :month, :year],
+                                :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                :start_year => 2018, 
+                                :end_year => 2030,
+                                :class => 'form-control' %></td>
+          <%=f.error_span(:campo2) %>
+          <%=f.error_span(:data2) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>C</b></td> 
+          <td class="col-lg-3"><%= f.text_field :campo3, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data3, :order => [:day, :month, :year],
+                                :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                :start_year => 2018, 
+                                :end_year => 2030,
+                                :class => 'form-control' %></td>
+          <%=f.error_span(:campo3) %>
+          <%=f.error_span(:data3) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>DRB1</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo4, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data4, :order => [:day, :month, :year],
+                                      :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                      :start_year => 2018, 
+                                      :end_year => 2030,
+                                      :class => 'form-control' %></td>
+          <%=f.error_span(:campo4) %>
+          <%=f.error_span(:data4) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>DQB1</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo5, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data5, :order => [:day, :month, :year],
+                                      :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                      :start_year => 2018, 
+                                      :end_year => 2030,
+                                      :class => 'form-control' %></td>
+          <%=f.error_span(:campo5) %>
+          <%=f.error_span(:data5) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>A-AR</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo6, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data6, :order => [:day, :month, :year],
+                                      :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                      :start_year => 2018, 
+                                      :end_year => 2030,
+                                      :class => 'form-control' %></td>
+          <%=f.error_span(:campo6) %>
+          <%=f.error_span(:data6) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>B-AR</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo7, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data7, :order => [:day, :month, :year],
+                                      :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                      :start_year => 2018, 
+                                      :end_year => 2030,
+                                      :class => 'form-control' %></td>
+          <%=f.error_span(:campo7) %>
+          <%=f.error_span(:data7) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>C-AR</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo8, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data8, :order => [:day, :month, :year],
+                                      :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                      :start_year => 2018, 
+                                      :end_year => 2030,
+                                      :class => 'form-control' %></td>
+          <%=f.error_span(:campo8) %>
+          <%=f.error_span(:data8) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>DR-AR</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo9, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data9, :order => [:day, :month, :year],
+                                      :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                      :start_year => 2018, 
+                                      :end_year => 2030,
+                                      :class => 'form-control' %></td>
+          <%=f.error_span(:campo9) %>
+          <%=f.error_span(:data9) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>PIPETAS</b></td>
+          <td class="col-lg-3" colspan="2"><%= f.text_field :campo10, :class => 'form-control' %></td>
+          <%=f.error_span(:campo10) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>TERMOCICLADOR</b></td>
+          <td class="col-lg-3" colspan="2"><%= f.text_field :campo11, :class => 'form-control' %></td>
+          <%=f.error_span(:campo11) %>
+        </div>
+      </tr>
+    </tbody>
+  </table>
+
+  <br><br><br>
+
+  <table class="table table-striped table-condensed vertical-align form-group">
+    <thead>
+      <tr>
+        <th style="text-align:center"><h4><b>LOCO</b></h4></th>
+        <th style="text-align:center"><h4><b><i>BEAD</i> (LOTE)</b></h4></th>
+        <th style="text-align:center"><h4><b>VALIDADE</b></h4></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>A</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo12, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data12, :order => [:day, :month, :year],
+                                    :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                    :start_year => 2018, 
+                                    :end_year => 2030,
+                                    :class => 'form-group' %></td>
+          <%=f.error_span(:campo12) %>
+          <%=f.error_span(:data12) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>B</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo13, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data13, :order => [:day, :month, :year],
+                                :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                :start_year => 2018, 
+                                :end_year => 2030,
+                                :class => 'form-control' %></td>
+          <%=f.error_span(:campo13) %>
+          <%=f.error_span(:data13) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>C</b></td> 
+          <td class="col-lg-3"><%= f.text_field :campo14, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data14, :order => [:day, :month, :year],
+                                :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                :start_year => 2018, 
+                                :end_year => 2030,
+                                :class => 'form-control' %></td>
+          <%=f.error_span(:campo14) %>
+          <%=f.error_span(:data14) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>DRB1</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo15, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data15, :order => [:day, :month, :year],
+                                      :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                      :start_year => 2018, 
+                                      :end_year => 2030,
+                                      :class => 'form-control' %></td>
+          <%=f.error_span(:campo15) %>
+          <%=f.error_span(:data15) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>DQB1</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo16, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data16, :order => [:day, :month, :year],
+                                      :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                      :start_year => 2018, 
+                                      :end_year => 2030,
+                                      :class => 'form-control' %></td>
+          <%=f.error_span(:campo16) %>
+          <%=f.error_span(:data16) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>A-AR</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo17, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data17, :order => [:day, :month, :year],
+                                      :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                      :start_year => 2018, 
+                                      :end_year => 2030,
+                                      :class => 'form-control' %></td>
+          <%=f.error_span(:campo17) %>
+          <%=f.error_span(:data17) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>B-AR</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo18, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data18, :order => [:day, :month, :year],
+                                      :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                      :start_year => 2018, 
+                                      :end_year => 2030,
+                                      :class => 'form-control' %></td>
+          <%=f.error_span(:campo18) %>
+          <%=f.error_span(:data18) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>C-AR</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo19, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data19, :order => [:day, :month, :year],
+                                      :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                      :start_year => 2018, 
+                                      :end_year => 2030,
+                                      :class => 'form-control' %></td>
+          <%=f.error_span(:campo19) %>
+          <%=f.error_span(:data19) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>DR-AR</b></td>
+          <td class="col-lg-3"><%= f.text_field :campo20, :class => 'form-control' %></td>
+          <td class="col-lg-3"><%= f.date_select :data20, :order => [:day, :month, :year],
+                                      :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                      :start_year => 2018, 
+                                      :end_year => 2030,
+                                      :class => 'form-control' %></td>
+          <%=f.error_span(:campo20) %>
+          <%=f.error_span(:data20) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>PIPETAS</b></td>
+          <td class="col-lg-3" colspan="2"><%= f.text_field :campo21, :class => 'form-control' %></td>
+          <%=f.error_span(:campo21) %>
+        </div>
+      </tr>
+      <tr>
+        <div>
+          <td class="col-md-1"><b>TERMOCICLADOR</b></td>
+          <td class="col-lg-3" colspan="2"><%= f.text_field :campo22, :class => 'form-control' %></td>
+          <%=f.error_span(:campo22) %>
+        </div>
+      </tr>
+    </tbody>
+  </table>
+  
+  <br><br>
+
+  <table class="table table-condensed vertical-align form-group">
+    <tr>  
+      <div>
+        <td class="col-md-1"><b>TAQ (LOTE):</b>
+        <td class="col-lg-5"><%= f.text_field :campo23, :class => 'form-control col-lg-3' %></td>
+        </td>
+        <td class="col-md-1" style="text-align:right;"><b>VALIDADE: </b></td>
+        <td class="col-lg-4"><%= f.date_select :data23, :order => [:day, :month, :year],
+                                      :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                      :start_year => 2018, 
+                                      :end_year => 2030,
+                                      :class => 'form-control' %></td>
+        <%=f.error_span(:campo23) %>
+        <%=f.error_span(:data23) %>
+      </div>
+    </tr>
+    <tr>
+      <div>
+        <td class="col-lg-2"><b>D-MIX (LOTE):</b></td>
+        <td class="col-lg-5"><%= f.text_field :campo24, :class => 'form-control col-lg-3' %></td>
+        <td class="col-lg-2" style="text-align:right;"><b>VALIDADE: </b></td>
+        <td class="col-lg-4"><%= f.date_select :data24, :order => [:day, :month, :year],
+                                      :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                      :start_year => 2018, 
+                                      :end_year => 2030,
+                                      :class => 'form-control' %></td>
+        <%=f.error_span(:campo24) %>
+        <%=f.error_span(:data24) %>
+      </div>
+    </tr>
+  </table>
+
+  <br><br>
+
+  <div class="form-group">
+    <div class="control-label col-lg-4">
+      <h5><b>Observações gerais:</b></h5>
+    </div>
+    <div class="col-lg-8">
+      <%= f.text_area :obs, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:obs) %>
+  </div>
+
+  <br><br>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-3">
+      <%= f.submit 'Enviar', :class => 'btn btn-info' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                reagents_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

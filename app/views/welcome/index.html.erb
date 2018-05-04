@@ -1,0 +1,60 @@
+<br><br>
+
+<p>
+<%= image_tag("logo_hla1.png", :alt => "Logo HLA-UERJ", :style => "float:left;") %> 
+<h1>Bem Vindo ao Sistema de Gerenciamento de Amostras do HLA-UERJ</h1>
+</p>
+
+<br><br> 
+
+<% if user_signed_in? %>
+	<div class="page-header">
+	<h3>Guia rápido de utilização do sistema para usuários cadastrados </h3><br>
+	</div>
+<% else %>
+	<div class="page-header">
+	<h3>Ambiente destinado apenas a colaboradores autenticados do HLA-UERJ. </h3>
+	</div>
+<% end %>
+
+<% if user_signed_in? %>
+	<p>
+		<li>A primeira informação que se deve dar ao sistema é o número da placa em que as amostras serão alocadas. Para isso, basta clicar no link <b><%= link_to "Placas", boardnums_path %></b> (na barra superior de navegação) e lá criar uma nova placa com o seu respectivo número, clicando no botão <b>Novo</b>.</li>
+	</p>
+
+	<br>
+
+	<p>
+		<li>Em seguida, deve-se realizar o cadastro das amostras que estarão contidas em suas respectivas placas. Para isso, o usuário deve clicar no link <b><%= link_to "Amostras", dnanums_path %></b> e no botão <b>Novo</b>. O formulário exige que sejam inseridos o número de DNA da amostra, o motivo do cadastro (repetição de algum processo ou não), o tipo de exame a realizar a placa em que a amostra estará alocada e qual poço será ocupado pela amostra na respectiva placa. Feito isso basta clicar no botão Enviar. Mensagens de erro podem surgir caso as informações não estejam de acordo com o previsto.</li>
+	</p>
+
+	<br>
+
+	<p>
+		<li>E, por fim, deve-se criar o mapa de trabalho. Para isso, basta clicar no link <b><%= link_to "Mapas de Trabalho", boards_path %></b>, depois no botão <b>Novo</b>, escolher o número da placa que se quer criar, inserir a confirmação de seu número, e o mapa será criado automaticamente. Sugerimos que seja sempre verificado se a disposição das amostras está de acordo com o planejado. Caso não esteja, basta voltar ao cadastro das amostras e realizar a edição necessária (nesse caso, direcioná-la ao poço correto), clicando no botão <b>Editar</b>.</li>
+	</p>
+
+	<br>
+
+	<p>
+		<li>As informações seguintes podem ser inseridas de acordo com a sua realização. Na seção <b><%= link_to "Reagentes", reagents_path %></b> são mostrados os números das placas cadastradas. A entrada de informações é dada à partir do botão <b>Editar</b>, que é onde será inserida a imagem da Eletroforese, serão apontadas as amostras que apresentaram falha em algum processo e serão descritos os lotes e validades dos reagentes utilizados. Há, também, uma sessão para observações gerais, para observações diversas.</li>
+	</p>
+
+	<br>
+
+	<p>
+		<li>Na seção <b><%= link_to "Etapas de Processos", phases_path %></b> também são mostrados os respectivos números de placas cadastradas. Clicando no botão <b>Mostrar</b>, é possível inserir os responsáveis pela realização das respectivas etapas. Uma observação importante a se fazer é que somente o usuário indicado como responsável pela etapa pode pode remover seu nome dali, deixando o campo em branco pra que seja inserido um novo responsável. Somente os usuários supervisores podem adicionar e/ou remover relatórios. Clicando no botão <b>Editar</b>, é possível inserir a <i>DATABASE</i> e dizer se os controles positivos e negativos são válidos, assim como inserir suas respectivas observações, se houverem.</li>
+	</p>
+
+	<br>
+
+	<p>
+		<li>Na seção <b><%= link_to "Relatórios", reports_path %></b> temos a reunião de toda informação inserida para as respectivas placas. Tais informações são agrupadas automaticamente, à medida que vão sendo inseridas no sistema. O objetivo dessa seção é agrupar toda informação presente no sistema de maneira semelhante aos mapas de trabalho feitos em papel. Há um campo para relatório/observações finais clicando no botão <b>Adicionar Relatório</b>, caso seja necessário. Clicando no botão <b>Mostrar</b>, podemos ver toda a informação - mapa, etapas de processos, amostras com falha e reagentes. No mapa, as amostras mostradas em vermelho são as que apresentaram falha em algum processo, e, por isso, não devem ser hibridizadas. Ao final dessa seção, há o botão <b>Criar Documento em PDF</b>, que renderiza a informação para um formato PDF, que pode ser impresso ou salvo em algum outro local.</li>
+	</p>
+
+	<br>
+
+	<p>
+		<li>Como o principal propósito desse sistema é diminuir a quantidade de papel impresso no HLA-UERJ, sugerimos que a opção de impressão seja utilizada o mínimo possível. Para mais informações, detalhes, sugestões ou críticas, contate o administrador do sistema.</li>
+	</p>
+<% end %>

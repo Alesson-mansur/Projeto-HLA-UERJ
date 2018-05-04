@@ -1,0 +1,17 @@
+<%- model_class = Dnanum -%>
+<div class="page-header">
+  <h1>Novo Cadastro e Endereçamento da Amostra à Placa</h1>
+</div>
+
+<% @boards = Board.all %>
+<% aux = ['0','0','0'] %>
+<% count = 0  %>
+<% @boards.each do |asd| %>
+	<% aux[count] = asd.identification  %>
+	<% count = count + 1 %> 
+<% end %>
+<% @tst = Boardnum.where.not({ identification: aux }).order("created_at desc") %>
+
+<br>
+
+<%= render :partial => 'form' %>

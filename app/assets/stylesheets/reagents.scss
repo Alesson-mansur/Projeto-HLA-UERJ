@@ -1,0 +1,25 @@
+// Place all the styles related to the Reagents controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+//fazer as margens aparecerem
+.table {
+    border: 1px solid #a5a5a5;
+    border-top: 1px solid #a5a5a5 !important;
+}
+.table>thead {
+    border-bottom: 1px solid #a5a5a5;
+}
+.table>tbody>tr>td {
+	border-top: 1px solid #a5a5a5 !important;
+}
+
+//fazer as letras da seleção date continuarem em preto
+.reagent {
+	.table-striped>tbody>tr:hover:nth-child(odd)>td {
+		color: #000000;
+	 }
+	tr:hover {
+  		color: #000000;
+	}
+}

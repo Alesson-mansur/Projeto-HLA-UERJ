@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PDF</title>
+	<meta charset="utf-8" />
+	<%= wicked_pdf_stylesheet_link_tag "application" -%>
+	<%= wicked_pdf_javascript_include_tag "number_pages" %>
+	<%= wicked_pdf_image_tag("logo_hla1.png", :alt => "Logo HLA-UERJ", :style => "float:right;margin:0px;padding:0px", :height=>"100", :width=>"180",) %>
+	<div class="page-header">
+		<h3><b>Mapa de Trabalho</b> </h3> 
+	</div>	
+</head>
+<body>
+<div class="container">
+  <p><h4><b>Número da Placa:</b> <%= @board.identification %></h4></p>
+
+	<% temp = ['A','B','C','D','E','F','G','H'] %>
+  <% trop = ['1','2','3','4','5','6','7','8','9','10','11','12'] %>
+
+  <table border="2" class="table table-striped vertical-align">
+    <thead>
+      <tr>
+        <th></th>
+        <% 12.times do |qwe| %>
+          <th style="text-align:center"><h4><b><%= trop[qwe] %></b></h4></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% 8.times do |rdf| %> 
+        <tr>
+          <td style="height:20px"><h5><b><%= temp[rdf] %></b></h5></td>
+          <% 12.times do |spc| %>
+            <% varaux = nil %>
+            <% id_reag = 0 %>
+            <% varsup = '0' %>
+            <% aux = temp[rdf] + trop[spc] %>
+            <% @board.dnanums.each do|zxcv| %>
+              <% if (zxcv.well == aux) %>
+                <% varaux = zxcv.code + ' - ' + zxcv.exam.kind %>
+              <% end %>
+            <% end %>
+            <% if (varaux == nil) %>
+              <td style="height:20px">Vazio</td>
+            <% else %>
+              <td style="height:20px"><%= varaux %></td>
+            <% end %> 
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

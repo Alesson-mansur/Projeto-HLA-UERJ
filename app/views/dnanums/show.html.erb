@@ -1,0 +1,30 @@
+<%- model_class = Dnanum -%>
+<div class="page-header">
+  <h1>Endereçamento de Amostra à Placa</h1><br>
+  <h3>Detalhes:</h3>
+</div>
+
+<br>
+
+<dl class="dl-horizontal">
+  <dt><strong>Número de DNA:</strong></dt>
+  <dd><%= @dnanum.code %></dd><br>
+  <dt><strong>Repetição de processos?</strong></dt>
+  <dd><%= @dnanum.option %></dd><br>
+  <dt><strong>Localização da amostra:</strong></dt>
+  <dd>Placa nº <%= @dnanum.boardnum.identification %></dd><br>
+  <dt><strong>Poço destinado:</strong></dt>
+  <dd><%= @dnanum.well %></dd><br>
+  <dt><strong>Exame associado:</strong></dt>
+  <dd><%= @dnanum.exam.kind %></dd>
+</dl>
+
+<br>
+
+<%= link_to 'Voltar', dnanums_path, :class => 'btn btn-default'  %>
+<%= link_to 'Editar', edit_dnanum_path(@dnanum), :class => 'btn btn-info' %>
+<%= link_to 'Deletar', dnanum_path(@dnanum),
+              :method => 'delete',
+              :data => { :confirm => 'Deseja mesmo deletar o cadastro selecionado?' },
+              :class => 'btn btn-danger' %>
+<%= link_to 'Novo registro de amostra em placa', new_dnanum_path, :class => 'btn btn-primary' %>

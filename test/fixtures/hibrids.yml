@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  who: MyString
+  when: 2018-03-20
+  board: one
+  phase: one
+
+two:
+  who: MyString
+  when: 2018-03-20
+  board: two
+  phase: two

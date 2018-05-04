@@ -1,0 +1,41 @@
+<%- model_class = Boardnum -%>
+<div class="page-header">
+  <h1>Placas Cadastradas <%= image_tag("logo_hla1.png", :alt => "Logo HLA-UERJ", :style => "float:right;") %> </h1>
+</div>
+
+<%= will_paginate @boardnums %>
+
+<div class="field">
+  <%= form_tag(boardnums_path, method: "get") do %>
+    <%= text_field_tag :q, params[:q], placeholder: 'Procurar...' %>
+    <%= submit_tag("Pesquisar") %>
+  <% end %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><h5><b>Número da Placa</b></h5></th>
+      <th><h5><b>Incluída em</b></h5></th>
+      <th><h5><b>Ações</b></h5></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for boardnum in @boardnums %>
+      <tr>
+        <td><%= boardnum.identification %></td>
+        <td><%= boardnum.created_at.to_s(:port) %></td>
+        <td>
+          <%= link_to 'Mostrar', boardnum_path(boardnum), :class => 'btn btn-default btn-sm' %>
+          <%= link_to 'Editar', edit_boardnum_path(boardnum), :class => 'btn btn-info btn-sm' %>
+          <%= link_to 'Apagar', boardnum_path(boardnum),
+                      :method => :delete,
+                      :data => { :confirm => 'Deseja mesmo apagar o cadastro selecionado?' },
+                      :class => 'btn btn-sm btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Novo Cadastro', new_boardnum_path, :class => 'btn btn-primary btn-lg' %>

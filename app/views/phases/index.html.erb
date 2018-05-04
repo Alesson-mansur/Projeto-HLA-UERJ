@@ -1,0 +1,36 @@
+<%- model_class = Phase -%>
+<div class="page-header">
+  <h1>Etapas de Processos para as Amostras<%= image_tag("logo_hla1.png", :alt => "Logo HLA-UERJ", :style => "float:right;") %></h1>
+</div>
+
+<div>
+  <%= will_paginate @phases %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><h5><b>Número da Placa</b></h5></th>
+      <th><h5><b>Criado em</b></h5></th>
+      <th><h5><b>Situação das Etapas de Processo</b></h5></th>
+      <th colspan="2"><h5><b>Ações:</b></h5></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for phase in @phases %>
+      <tr>
+        <td><b><%= phase.board.identification %></b></td>
+        <td><%= phase.board.created_at.to_s(:port) %></td>
+        <% if (phase.pcr.who.blank?) || (phase.eletroforese.who.blank?) || (phase.hibrid.who.blank?) || (phase.interp.who.blank?) || (phase.interpret.who.blank?) || (phase.relat.who.blank?) %>
+          <td><strong>Status: </strong> Em Andamento até <%= phase.updated_at.to_s(:port) %></td>
+        <% else %>
+          <td><strong>Status: </strong> Concluído </td>
+        <% end %>
+        <td>
+          <%= link_to 'Mostrar', phase_path(phase), :class => 'btn btn-default btn-sm' %>
+          <%= link_to 'Editar', edit_phase_path(phase), :class => 'btn btn-info btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,199 @@
+<%- model_class = Phase -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<br>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong>Número da Placa:</strong></h5>
+  </div>
+  <div class="control-label col-lg-3">
+    <h5><%= @phase.board.identification %></h5>
+  </div>
+</div>
+
+<br><br>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong>Reação de PCR:</strong></h5>
+  </div>
+  <% if @phase.pcr.who.blank? %>
+    <div class="control-label col-lg-3"><h5>Ainda não definido.</h5></div>
+  <% else %>
+    <div class="control-label col-lg-3">
+      <h5><%= @phase.pcr.who %><i> em </i><%= @phase.pcr.when.strftime("%d %b %Y") %></h5>
+    </div>
+  <% end %>
+  <div class="control-label col-lg-4">
+    <%= link_to 'Incluir responsável pela Reação de PCR', pcr_path(@phase.pcr), :class => "btn btn-primary btn-md btn-block" %><br>
+  </div>
+</div>
+  
+<br><br>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong>Eletroforese:</strong></h5>
+  </div>
+  <% if @phase.eletroforese.who.blank? %>
+    <div class="control-label col-lg-3"><h5>Ainda não definido.</h5></div>
+  <% else %>
+    <div class="control-label col-lg-3">
+      <h5><%= @phase.eletroforese.who %><i> em </i><%= @phase.eletroforese.when.strftime("%d %b %Y") %></h5>
+    </div>
+  <% end %>
+  <div class="control-label col-lg-4">
+    <%= link_to 'Incluir responsável pela Eletroforese', eletroforese_path(@phase.eletroforese), :class => "btn btn-primary btn-md btn-block" %>
+  </div>
+</div>
+
+<br><br>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong>Hibridização:</strong></h5>
+  </div>
+  <% if @phase.hibrid.who.blank? %>
+    <div class="control-label col-lg-3"><h5>Ainda não definido.</h5></div>
+  <% else %>
+    <div class="control-label col-lg-3">
+      <h5><%= @phase.hibrid.who %><i> em </i><%= @phase.hibrid.when.strftime("%d %b %Y") %></h5>
+    </div>
+  <% end %>
+  <div class="control-label col-lg-4">
+    <%= link_to 'Incluir responsável pela Hibridização', hibrid_path(@phase.hibrid), :class => "btn btn-primary btn-md btn-block" %>
+  </div>
+</div>
+
+<br><br>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong>Interpretação I:</strong></h5>
+  </div>
+  <% if @phase.interp.who.blank? %>
+    <div class="control-label col-lg-3"><h5>Ainda não definido.</h5></div>
+  <% else %>
+    <div class="control-label col-lg-3">
+      <h5><%= @phase.interp.who %><i> em </i><%= @phase.interp.when.strftime("%d %b %Y") %></h5>
+    </div>
+  <% end %>
+  <div class="control-label col-lg-4">
+    <%= link_to 'Incluir responsável pela Interpretação I', interp_path(@phase.interp), :class => "btn btn-primary btn-md btn-block" %>
+  </div>
+</div>
+
+<br><br>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong>Interpretação II:</strong></h5>
+  </div>
+  <% if @phase.interpret.who.blank? %>
+    <div class="control-label col-lg-3"><h5>Ainda não definido.</h5></div>
+  <% else %>
+    <div class="control-label col-lg-3">
+      <h5><%= @phase.interpret.who %><i> em </i><%= @phase.interpret.when.strftime("%d %b %Y") %></h5>
+    </div>
+  <% end %>
+  <div class="control-label col-lg-4">
+    <%= link_to 'Incluir responsável pela Interpretação II', interpret_path(@phase.interpret), :class => "btn btn-primary btn-md btn-block" %>
+  </div>
+</div>
+
+<br><br>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong>Relatório:</strong></h5>
+  </div>
+  <% if @phase.relat.who.blank? %>
+    <div class="control-label col-lg-3"><h5>Ainda não definido.</h5></div>
+  <% else %>
+    <div class="control-label col-lg-3">
+      <h5><%= @phase.relat.who %><i> em </i><%= @phase.relat.when.strftime("%d %b %Y") %></h5>
+    </div>
+  <% end %>
+  <div class="control-label col-lg-4">
+    <%= link_to 'Incluir responsável pelo Relatório', relat_path(@phase.relat), :class => "btn btn-primary btn-md btn-block" %>
+  </div>
+</div>
+
+<br><br>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong><i>DATABASE</i>:</strong></h5>
+  </div>
+  <% if @phase.base.blank? %>
+    <div class="control-label col-lg-3"><h5>Ainda não definido.</h5></div>
+  <% else %>
+    <div class="control-label col-lg-3">
+     <h5><%= @phase.base %></h5>
+    </div>  
+  <% end %>
+</div>
+
+<br><br>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong>Controle Positivo Válido?</strong></h5>
+  </div>
+  <% if @phase.positivo.blank? %>
+    <div class="control-label col-lg-2">
+      <h5>Ainda não definido.</h5>
+    </div>
+  <% else %> 
+    <div class="control-label col-lg-1">
+      <h5><%= @phase.positivo %></h5>
+    </div><br><br>
+    <div class="control-label col-lg-3" style="text-align:right;">
+      <h5><b>OBS:</b></h5>
+    </div>
+    <div class="control-label col-lg-7">
+      <h5><%= @phase.opt1 %></h5>
+    </div><br>
+  <% end %>
+</div>
+
+<br><br>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong>Controle Negativo Válido?</strong></h5>
+  </div>
+  <% if @phase.negativo.blank? %>
+    <div class="control-label col-lg-2">
+      <h5>Ainda não definido.</h5>
+    </div>
+  <% else %>
+    <div class="control-label col-lg-1">
+      <h5><%= @phase.negativo %></h5>
+    </div>
+  <% end %>
+</div>
+
+<br><br>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong>OBS:</strong></h5>
+  </div>
+  <div class="control-label col-lg-7">
+    <h5><%= @phase.opt2 %></h5>
+  </div><br>
+</div>
+
+<br><br><br>
+
+<div class="form-group">
+  <div class="control-label col-lg-8">
+    <%= link_to t('.back', :default => t("helpers.links.back")),
+                  phases_path, :class => 'btn btn-default'  %>
+    <%= link_to 'Editar DATABASE e Controles', edit_phase_path(@phase), :class => 'btn btn-info' %>
+  </div>
+</div>

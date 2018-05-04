@@ -1,0 +1,37 @@
+<%- model_class = Reagent -%>
+<div class="page-header">
+  <h1>Reagentes, Eletroforese e Amostras Reprovadas <%= image_tag("logo_hla1.png", :alt => "Logo HLA-UERJ", :style => "float:right;") %></h1>
+</div>
+
+<div>
+  <%= will_paginate @dnanums %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><h5><b>Número da Placa</b></h5></th>
+      <th><h5><b>Última atualização</b></h5></th>
+      <th><h5><b>Eletroforese</b></h5></th>
+      <th><h5><b><%=t '.actions', :default => t("helpers.actions") %></b></h5></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for reagent in @reagents %>
+      <tr>
+        
+        <td><b><%= reagent.board.identification %></b></td>
+        <td><%= reagent.updated_at.to_s(:port) %></td>
+        <% if (reagent.image.blank?) %>
+          <td><strong>Imagem ainda não enviada.</strong></td>
+        <% else %>
+          <td><%= image_tag reagent.image.url(:thumb) %></td>
+        <% end %>
+        <td>
+          <%= link_to 'Mostrar', reagent_path(reagent), :class => 'btn btn-default btn-sm' %>
+          <%= link_to 'Editar', edit_reagent_path(reagent), :class => 'btn btn-info btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,33 @@
+<%- model_class = Eletroforese -%>
+<div class="page-header">
+  <h2><%=t '.title', :default => model_class.model_name.human.titleize %></h2>
+</div>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong>Número da Placa:</strong></h5>
+  </div>
+  <div class="control-label col-lg-3">
+    <h5><%= @eletroforese.board.identification %></h5>
+  </div><br><br>
+</div>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong>Feito por:</strong></h5>
+  </div>
+  <div class="control-label col-lg-4">
+    <% if @eletroforese.who.blank? %>
+    <% else %>
+      <h5><%= @eletroforese.who %><i> em </i><%= @eletroforese.when.strftime("%d %b %Y") %></h5>
+    <% end %>
+  </div><br>
+</div>
+
+<br><br>
+
+<%= link_to 'Voltar para Etapas', phase_path(@eletroforese.phase), :class => 'btn btn-default'  %>
+<% if (@eletroforese.who.blank?) || (@eletroforese.who == current_user.username.titleize) %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_eletroforese_path(@eletroforese), :class => 'btn btn-info' %>
+<% end %>

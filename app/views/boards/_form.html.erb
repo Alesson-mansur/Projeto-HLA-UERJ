@@ -1,0 +1,50 @@
+<%= form_for @board, :html => { :class => "form-horizontal board" } do |f| %>
+
+  <% if @board.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@board.errors.count, "error") %> prohibited this board from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @board.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <div class="control-label col-lg-3">
+      <h5><b>Número da Placa:</b></h5>
+    </div>
+    <div class="col-lg-offset-0 col-lg-4">
+      <%= f.collection_select :boardnum_id, Boardnum.where.not({ identification: @aux }).order("created_at desc"), :id, :identification, { :prompt => "Selecione" }, {:class => "btn btn-primary disable-dropdown-toggle form-control"} %>
+    </div>
+    <%=f.error_span(:boardnum_id) %>
+  </div>  
+
+  <br>
+
+  <div class="form-group">
+    <div class="control-label col-lg-3">
+      <h5><b>Confirmação de Número da Placa:</b></h5>
+    </div>
+    <div class="col-lg-4">
+      <%= f.text_field :identification, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:identification) %>
+  </div>
+
+  <br>
+  
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit 'Enviar', :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                boards_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

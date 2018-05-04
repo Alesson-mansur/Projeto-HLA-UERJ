@@ -1,0 +1,78 @@
+<%= form_for @phase, :html => { :class => "form-horizontal phase" } do |f| %>
+
+  <% if @phase.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@phase.errors.count, "error") %> prohibited this phase from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @phase.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  
+  <div class="form-group">
+    <div class="control-label col-lg-3">
+      <h5><b>Número da Placa:</b></h5>
+    </div>
+    <div class="control-label col-lg-4" style="text-align:left">
+      <h5><%= @phase.board.identification %></h5>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="form-group">
+    <div class="control-label col-lg-3">
+      <h5><b><i>DATABASE:</i></b></h5>
+    </div>
+    <div class="col-lg-4">
+      <%= f.text_field :base, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:base) %>
+  </div>
+
+  <br>
+
+  <div class="form-group">
+    <div class="text text-right col-lg-3">
+      <h5><b>Controle Positivo Válido?</b></h5>
+    </div>
+    <div class="dropdown col-lg-4">
+      <%= f.select :positivo, options_for_select(["Sim","Não"]), { :prompt => "Selecione" }, {:class => "btn btn-primary disable-dropdown-toggle form-control"} %>
+    </div>
+    <div class="col-lg-4">
+      <%= f.text_area :opt1, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:positivo) %>
+    <%=f.error_span(:opt1) %>
+  </div>
+  <div class="form-group">
+    <div class="text text-right col-lg-3">
+      <h5><b>Controle Negativo Válido?</b></h5>
+    </div>
+    <div class="dropdown col-lg-4">
+      <%= f.select :negativo, options_for_select(["Sim","Não"]), { :prompt => "Selecione" }, {:class => "btn btn-primary disable-dropdown-toggle form-control"} %>
+    </div>
+    <div class="col-lg-4">
+      <%= f.text_area :opt2, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:negativo) %>
+    <%=f.error_span(:opt2) %>
+  </div>
+
+  <br>  
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit 'Enviar', :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                phase_path(@phase), :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

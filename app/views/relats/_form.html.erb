@@ -1,0 +1,44 @@
+<%= form_for @relat, :html => { :class => "form-horizontal relat" } do |f| %>
+
+  <% if @relat.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@relat.errors.count, "error") %> prohibited this relat from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @relat.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <div class="control-label col-lg-3">
+      <h5><b>Feito por:</b></h5>
+    </div>
+    <div class="dropdown col-lg-4">
+      <%= f.select :who, options_for_select( [current_user.username.titleize] ), { :prompt => "Selecione", :include_blank => true }, {:class => "btn btn-primary disable-dropdown-toggle form-control"} %>
+    </div>
+    <div class="col-lg-4">
+      <%= f.date_select :when, :order => [:day, :month, :year], 
+                                  :use_month_names => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                  :start_year => 2018, 
+                                  :end_year => 2030,
+                                  :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:who) %>
+    <%=f.error_span(:when) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit 'Enviar', :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                relat_path(@relat), :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

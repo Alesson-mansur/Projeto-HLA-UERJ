@@ -1,0 +1,33 @@
+<%- model_class = Interpret -%>
+<div class="page-header">
+  <h2>Interpretação II</h2>
+</div>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong>Número da Placa:</strong></h5>
+  </div>
+  <div class="control-label col-lg-3">
+    <h5><%= @interpret.board.identification %></h5>
+  </div><br><br>
+</div>
+
+<div class="form-group">
+  <div class="control-label col-lg-3" style="text-align:right;">
+    <h5><strong>Feito por:</strong></h5>
+  </div>
+  <div class="control-label col-lg-4">
+    <% if @interpret.who.blank? %>
+    <% else %>
+      <h5><%= @interpret.who %><i> em </i><%= @interpret.when.strftime("%d %b %Y") %></h5>
+    <% end %>
+  </div><br>
+</div>
+
+<br><br>
+
+<%= link_to 'Voltar para Etapas', phase_path(@interpret.phase), :class => 'btn btn-default'  %>
+<% if (@interpret.who.blank?) || (@interpret.who == current_user.username.titleize) %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_interpret_path(@interpret), :class => 'btn btn-info' %>
+<% end %>

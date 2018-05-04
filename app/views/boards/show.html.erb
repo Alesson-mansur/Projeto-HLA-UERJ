@@ -1,0 +1,57 @@
+<%- model_class = Board -%>
+<div class="page-header">
+  <h1>Mapa de Trabalho</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><h4><strong>Número da Placa:</strong></h4></dt>
+  <dd><h4><%= @board.identification %></h4></dd>
+</dl>
+
+<br>
+
+<% temp = ['A','B','C','D','E','F','G','H'] %>
+<% trop = ['1','2','3','4','5','6','7','8','9','10','11','12'] %>
+
+	<table border="2" class="table table-striped vertical-align">
+    <thead>
+      <tr>
+        <th></th>
+        <% 12.times do |qwe| %>
+          <th style="text-align:center"><h4><b><%= trop[qwe] %></b></h4></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% 8.times do |rdf| %> 
+        <tr>
+          <td style="height:20px"><h5><b><%= temp[rdf] %></b></h5></td>
+          <% 12.times do |spc| %>
+            <% varaux = nil %>
+            <% aux = temp[rdf] + trop[spc] %>
+            <% @board.dnanums.each do|zxcv| %>
+              <% if (zxcv.well == aux) %>
+                <% varaux = zxcv.code + ' - ' + zxcv.exam.kind %>
+              <% end %>
+            <% end %>
+            <% if (varaux == nil) %>
+              <td style="height:20px">Vazio</td>
+            <% else %>
+              <td style="height:20px"><%= varaux %></td>
+            <% end %> 
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<br>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              boards_path, :class => 'btn btn-default'  %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              board_path(@board),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+<%= link_to 'Criar Documento em PDF', board_path(@board, :format => :pdf), :target => "_blank", :class => 'btn btn-warning' %>

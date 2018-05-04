@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sistema HLA-UERJ</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  
+  <body>
+
+	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapsable">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a href="/ " class="navbar-brand">Sistema HLA-UERJ</a>
+	    </div>
+	    <% if user_signed_in? %>
+	    	<div class="collapse navbar-collapse" id="navbar-collapsable">
+	      		<ul class="nav navbar-nav foo" id="menu">
+            		<li><%= link_to "Placas", boardnums_path %></li>
+            		<li><%= link_to "Amostras", dnanums_path %></li>
+	        		<li><%= link_to "Mapas de Trabalho", boards_path %></li>
+	        		<li><%= link_to "Reagentes", reagents_path %></li>
+	        		<li><%= link_to "Etapas de Processos", phases_path %></li>
+	       			<li><%= link_to "Relatórios", reports_path %></li>
+	      		</ul>
+	      		<ul class="nav navbar-nav navbar-right" align="right">
+		      		<p class="navbar-text">
+		      		<span class='glyphicon glyphicon-user'></span> Olá, <strong><%= current_user.username.titleize %></strong>.
+		      		</p>
+		      		<li><%= link_to 'Editar perfil', edit_user_registration_path %></li>
+		      		<li>
+		      		<%= link_to destroy_user_session_path, method: :delete do %>
+		        		<i class="glyphicon glyphicon-log-out"></i> Sair
+		        	<% end %> 
+		      		</li>		      
+		    	</ul>
+		    </div>
+		<% else %>
+			<div class="collapse navbar-collapse" id="navbar-collapsable">
+				<p class="navbar-text"><font color="#ffffff">Sistema interno para gerenciamento do banco de amostras HLA-UERJ</font></p>
+				<ul class="nav navbar-nav navbar-right" align="right">
+		    	<li>
+		      	<%= link_to new_user_registration_path do %>
+		      		<i class="glyphicon glyphicon-user"></i> Colaboradores
+		      	<% end %> 
+		    	</li>
+		    	<li>
+		      	<%= link_to new_user_session_path do %>
+		      		<i class="glyphicon glyphicon-log-in"></i> Entrar
+		      	<% end %> 
+		    	</li>
+		    	</ul>
+		    </div>
+		<% end %>
+	  </div>
+	</nav>
+
+	<div id="container">
+	  <% flash.each do |name, msg| %>
+	    <%= content_tag :div, msg, id: "flash_#{name}" %>
+	  <% end %>
+
+	  <%= yield %>
+	</div>
+
+  </body>
+
+</html>
