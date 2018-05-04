@@ -1,24 +1,15 @@
-# README
+# READ-ME
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Sistema prototipado para gerenciamento de amostras do laboratório de HLA da UERJ. Visa, principalmente, modelar as microplacas cujos poços assumem o papel dos pequenos tubos de ensaio e controlar, de forma mais rígida, o cadastro e localização das amostras presentes em seu banco. As informações de login para os usuários comuns e administradores estão localizadas em db/seeds.rb.
 
-Things you may want to cover:
+The app was described in portuguese. But if you need some explanation in english, please contact-me: alessonmt@hotmail.com 
 
-* Ruby version
+Ambiente de criação da aplicação:
 
-* System dependencies
+* Ruby version: 2.5.0p0
 
-* Configuration
+* Rails version: 5.1.4
 
-* Database creation
+* System dependencies: Ubuntu 16.04 64bits
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Database: postgresql
